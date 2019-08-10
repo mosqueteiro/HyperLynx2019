@@ -1,0 +1,32 @@
+# Configuration file for the HyperLynx Pod
+
+# Pod States and transitions
+States:
+  - SafeToApproach
+  - Prelaunch
+  - Launching
+  - Brake
+  - Reconfig 1
+  - Reconfig 2
+  - Reconfig 3
+  - Crawling
+  - Brake Final
+  - Safing
+
+
+transitions:
+  - source:     Safing
+    trigger:    pod_safe
+    dest:       SafeToApproach
+
+  - source:     SafeToApproach
+    trigger:    cmd_launch
+    dest:       Prelaunch
+
+  - source:     Prelaunch
+    trigger:    prelaunch_ok
+    dest:       Launching
+    
+  - source:     Prelaunch
+    trigger:    cmd_abort
+    dest:       Safing
